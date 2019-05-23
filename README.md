@@ -16,6 +16,9 @@ dependencies: {
 },
 envDependencies: {
     "some-secret-module": "git+https://${GITHUB_TOKEN}:x-oauth-basic@github.com/you/privaterepo"
+},
+devEnvDependencies: {
+    "some-dev-secret-module": "git+https://${GITHUB_TOKEN}:x-oauth-basic@github.com/you/privaterepo"
 }
 ```
 
@@ -23,4 +26,11 @@ In the above example `some-secret-module` will be installed like this:
 ```
 GITHUB_TOKEN=abcdefg123456
 npm install https://abcdefg123456:x-oauth-basic@github.com/you/privaterepo
+```
+
+## Publish NPM Package
+
+```sh
+npm adduser
+npm publish --access public
 ```
