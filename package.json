@@ -1,9 +1,9 @@
 {
-  "name": "env-install-plus",
-  "version": "1.0.0",
-  "description": "Install envDependencies from package.json using environment variable replacements",
+  "name": "private-packages-on-github",
+  "version": "1.0.3",
+  "description": "Install NPM package hosted by private Github repo. Support both SSH and HTTPS Github connections.",
   "bin": {
-    "env-install-plus": "index.js"
+    "install-private-packages-from-github": "index.js"
   },
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ivawzh/env-install-plus.git"
+    "url": "git+https://github.com/ivawzh/private-packages-on-github.git"
   },
   "keywords": [
     "npm",
@@ -27,7 +27,7 @@
   "author": "Ivan Wang <ivawzh@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ivawzh/env-install-plus/issues"
+    "url": "https://github.com/ivawzh/private-packages-on-github/issues"
   },
-  "homepage": "https://github.com/ivawzh/env-install-plus#readme"
+  "homepage": "https://github.com/ivawzh/private-packages-on-github#readme"
 }

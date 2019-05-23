@@ -4,21 +4,18 @@ const path = require('path')
     , packageJson = require(path.join(process.cwd(), 'package.json'))
     , childProcess = require('child_process')
 
-const deps = packageJson.envDependencies || {}
-const devDeps = packageJson.devEnvDependencies || {}
+const isDev = ['development', undefined].includes(process.env.NODE_ENV)
+const deps = Object.assign({}, packageJson.privatePackagesOnGithub, (isDev && packageJson.devPrivatePackagesOnGithub))
 
-const packages = Object.keys(deps).map(key =>
-  deps[key].replace(/\${([0-9a-zA-Z_]*)}/g, (_, x) => process.env[x])
-).join(' ')
+const hasGithubToken = !!process.env.GITHUB_TOKEN
+const packages = Object.keys(deps).map(key => {
+  const address = deps[key]
+  const prefix = hasGithubToken ? "https://" + process.env.GITHUB_TOKEN + ":x-oauth-basic@" : "git+ssh://git@"
+  return prefix + address
+}).join(' ')
 
-const devPackages = Object.keys(devDeps).map(key =>
-  devDeps[key].replace(/\${([0-9a-zA-Z_]*)}/g, (_, x) => process.env[x])
-).join(' ')
-
-try {
-  if (['development', undefined].includes(process.env.NODE_ENV)) {
-    childProcess.execSync('npm install --no-save ' + packages + devPackages, { stdio:[0, 1, 2] })
-  } else {
+if (!!packages) {
+  try {
     childProcess.execSync('npm install --no-save ' + packages, { stdio:[0, 1, 2] })
-  }
-} catch (e) { }
+  } catch (e) {}
+}
